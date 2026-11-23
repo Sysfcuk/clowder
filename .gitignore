@@ -1,0 +1,17 @@
+# reference port (separate project)
+hexxagon-rs/
+
+# build outputs (the APK is published as a GitHub Release instead)
+*.apk
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/app/src/main/assets/www/
+*.jks
+*.keystore
+keystore.properties
+
+# local tooling
+.claude/
+__pycache__/

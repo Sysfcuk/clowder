@@ -1,0 +1,10 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Self-play test</title>
+<style>body{background:#111;color:#cfc;font:13px monospace;white-space:pre;padding:16px}</style>
+<body>Running AI self-play in every mode…
+<script type="module">
+  const w = new Worker('./selfplay.worker.js' + location.search, { type: 'module' });
+  w.onmessage = (e) => { document.body.textContent += '\n' + e.data; if (e.data === 'DONE') document.title = 'DONE'; };
+  w.onerror = (e) => { document.body.textContent += '\nWORKER ERROR ' + e.message; document.title = 'DONE'; };
+</script>

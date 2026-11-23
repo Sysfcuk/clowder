@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Optional release signing: create android/keystore.properties (see README) to sign release builds.
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) keystoreProps.load(new FileInputStream(keystorePropsFile))
+
+android {
+    namespace 'com.clowder.game'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.clowder.game'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        if (keystorePropsFile.exists()) {
+            release {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (keystorePropsFile.exists()) signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // The game itself lives one folder up (index.html, src/, vendor/, icons/). It is copied
+    // into the APK's assets/www on every build, so the app always ships the current game.
+    sourceSets {
+        main.assets.srcDirs += ["${layout.buildDirectory.get().asFile}/generated/web"]
+    }
+
+    // don't compress the big three.js module: it loads faster straight from the APK
+    androidResources {
+        noCompress 'js', 'woff2'
+    }
+}
+
+def webRoot = file("${rootDir}/..")
+tasks.register('syncWeb', Sync) {
+    from(webRoot) {
+        include 'index.html', 'manifest.webmanifest', 'src/**', 'vendor/**', 'icons/**'
+    }
+    into "${layout.buildDirectory.get().asFile}/generated/web/www"
+}
+preBuild.dependsOn syncWeb
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+}

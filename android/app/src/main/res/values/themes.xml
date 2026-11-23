@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Full screen, no action bar, and the game's deep-space colour behind everything so
+         launching never flashes white. -->
+    <style name="Theme.Clowder" parent="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+        <item name="android:windowBackground">@color/ink</item>
+        <item name="android:statusBarColor">@color/ink</item>
+        <item name="android:navigationBarColor">@color/ink</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>
