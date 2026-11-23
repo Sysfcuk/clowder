@@ -2,6 +2,8 @@
 
 **Grow your clowder. Claim the Rift.**
 
+▶ **[Play in your browser](https://sysfcuk.github.io/clowder/)** · 📱 **[Download the Android app (APK)](https://github.com/Sysfcuk/clowder/releases/latest/download/Clowder.apk)**
+
 *A clowder is a group of cats.* Clowder is a cosmic strategy game for the browser: Galactic
 Cats and Dino Cats fight over a floating lattice of hexes. Clone a step, leap two, and every
 enemy you land beside joins your side. It runs on **Three.js** with real-time shadows, AgX
